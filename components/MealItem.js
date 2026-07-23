@@ -1,17 +1,29 @@
-import { View, Text, Pressable, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  StyleSheet,
+  Platform,
+} from "react-native";
 
 function MealItem({ title, imageUrl, duration, complexity, affordability }) {
   return (
-    <View>
-      <Pressable>
-        <View>
-          <Image style={styles.image} source={{ uri: imageUrl }} />
-          <Text style={styles.title}>{title}</Text>
-        </View>
-        <View>
-          <Text>Duration {duration}m</Text>
-          <Text>{complexity.toUpperCase()}</Text>
-          <Text>{affordability.toUpperCase()}</Text>
+    <View style={styles.mealItem}>
+      <Pressable
+        style={({ pressed }) => (pressed ? styles.pressed : null)}
+        android_ripple={{ color: "#ccc" }}
+      >
+        <View style={styles.innerContainer}>
+          <View>
+            <Image style={styles.image} source={{ uri: imageUrl }} />
+            <Text style={styles.title}>{title}</Text>
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.detailItem}>Duration {duration}m</Text>
+            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
+            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
+          </View>
         </View>
       </Pressable>
     </View>
@@ -28,5 +40,37 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 18,
+    margin: 8,
+  },
+  mealItem: {
+    margin: 16,
+    borderRadius: 8,
+
+    backgroundColor: "white",
+    elevation: 4,
+    shadowColor: "black",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    backgroundColor: "#fff",
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
+  },
+  details: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 8,
+    justifyContent: "center",
+  },
+  detailItem: {
+    marginHorizontal: 4,
+    fontSize: 12,
+    fontWeight: "semibold",
+  },
+  innerContainer: {
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });
