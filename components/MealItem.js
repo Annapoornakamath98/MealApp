@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
+import ExtraInfo from "./ExtraInfo";
 
 function MealItem({
   id,
@@ -37,11 +38,11 @@ function MealItem({
             <Image style={styles.image} source={{ uri: imageUrl }} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>Duration {duration}m</Text>
-            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-          </View>
+          <ExtraInfo
+            duration={duration}
+            complexity={complexity}
+            affordability={affordability}
+          />
         </View>
       </Pressable>
     </View>
@@ -72,17 +73,6 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     backgroundColor: "#fff",
     overflow: Platform.OS === "android" ? "hidden" : "visible",
-  },
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 8,
-    justifyContent: "center",
-  },
-  detailItem: {
-    marginHorizontal: 4,
-    fontSize: 12,
-    fontWeight: "semibold",
   },
   innerContainer: {
     borderRadius: 8,
